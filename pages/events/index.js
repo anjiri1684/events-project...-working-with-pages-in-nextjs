@@ -1,22 +1,20 @@
 import { Fragment } from "react";
-import EventList from "../../components/events/event-list";
-import { getAllEvents } from "../../dummy-data";
-import EventsSearch from "./events-search";
 import { useRouter } from "next/router";
 
-function EventsPage() {
-  const events = getAllEvents();
+import { getAllEvents } from "../../dummy-data";
+import EventList from "../../components/events/event-list";
+import EventsSearch from "../../components/events/events-search";
+
+function AllEventsPage() {
   const router = useRouter();
+  const events = getAllEvents();
 
   function findEventsHandler(year, month) {
-    router.push({
-      pathname: "/events",
-      query: {
-        year: year,
-        month: month,
-      },
-    });
+    const fullPath = `/events/${year}/${month}`;
+
+    router.push(fullPath);
   }
+
   return (
     <Fragment>
       <EventsSearch onSearch={findEventsHandler} />
@@ -25,4 +23,4 @@ function EventsPage() {
   );
 }
 
-export default EventsPage;
+export default AllEventsPage;
